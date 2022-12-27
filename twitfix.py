@@ -455,10 +455,9 @@ def embed(video_link, vnf, image):
         image = vnf['images'][image]
         template = 'image.html'
 
-    if vnf['isGif'] == True and config['config']['gifConvertAPI'] != "":
-        template = 'image.html'
-        image=f"{config['config']['gifConvertAPI']}/convert.gif?url={vnf['url']}"
-    elif vnf['type'] == "Video":
+    if vnf['type'] == "Video":
+        if vnf['isGif'] == True and config['config']['gifConvertAPI'] != "":
+            vnf['url'] = f"{config['config']['gifConvertAPI']}/convert.mp4?url={vnf['url']}"
         urlDesc = urllib.parse.quote(textwrap.shorten(desc, width=220, placeholder="..."))
         template = 'video.html'
 
