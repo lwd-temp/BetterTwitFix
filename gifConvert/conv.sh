@@ -16,6 +16,7 @@ MAXW=400
 MAXH=267
 THREADS=1
 OUTPUT="out.gif"
+FPS=10
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -38,6 +39,10 @@ while [ $# -gt 0 ]; do
             THREADS="$2"
             shift
             ;;
+        -f|--fps)
+            FPS="$2"
+            shift
+            ;;
         -*)
             echo "Unknown option: $1"
             usage
@@ -53,7 +58,7 @@ done
 TEMPDIR=$( mktemp -d )
 
 ./ffmpeg -i "$URL" -vf "scale=if(gte(iw\,ih)\,min($MAXW\,iw)\,-2):if(lt(iw\,ih)\,min($MAXH\,ih)\,-2)" -threads $THREADS "$TEMPDIR/frame%04d.png"
-./gifski -o "$TEMPDIR/out.gif" --fast $TEMPDIR/frame*.png
+./gifski -o "$TEMPDIR/out.gif" --fast --fps $FPS --quality=90 $TEMPDIR/frame*.png
 #./gifsicle -O3 "$TEMPDIR/out.gif" -o "$OUTPUT"
 mv "$TEMPDIR/out.gif" "$OUTPUT"
 rm -rf "$TEMPDIR"

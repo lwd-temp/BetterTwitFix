@@ -18,7 +18,7 @@ RUN yum -y update
 RUN yum -y install git && yum -y install wget && yum -y install tar.x86_64 && yum -y install xz && yum clean all
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
 RUN tar -xvf ffmpeg-release-amd64-static.tar.xz
-RUN mv ff*/ffmpeg . && rm *.tar.xz && rm -rf ff*/
+RUN mv ff*/ffmpeg . && mv ff*/ffprobe . && rm *.tar.xz && rm -rf ff*/
 COPY --from=builder /var/task/gifsicle/src/gifsicle ./
 COPY --from=builder /var/task/gifski/target/release/gifski ./
 
