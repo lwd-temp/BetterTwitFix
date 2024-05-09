@@ -3,7 +3,7 @@ boto3==1.28.78
 requests==2.31.0
 Pillow==10.1.0
 Flask==2.2.3
-Flask-Cors==4.0.0
+Flask-Cors==4.0.1
 yt-dlp==2022.7.18
 Werkzeug==2.3.7
 numerize==0.12
